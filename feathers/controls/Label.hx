@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -10,6 +10,7 @@ import feathers.core.FeathersControl;
 import feathers.core.ITextBaselineControl;
 import feathers.core.ITextRenderer;
 import feathers.core.PropertyProxy;
+import feathers.data.DataProperties;
 import feathers.skins.IStyleProvider;
 
 import openfl.geom.Point;
@@ -834,11 +835,14 @@ class Label extends FeathersControl implements ITextBaselineControl
 	private function refreshTextRendererStyles():Void
 	{
 		this.textRenderer.wordWrap = this._wordWrap;
-		for(propertyName in Reflect.fields(this._textRendererProperties.storage))
+		
+		DataProperties.copyValuesFromDictionaryTo(_textRendererProperties.storage,textRenderer);
+		
+		/*for(propertyName in Reflect.fields(this._textRendererProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.field(this._textRendererProperties.storage, propertyName);
 			Reflect.setProperty(this.textRenderer, propertyName, propertyValue);
-		}
+		}*/
 	}
 
 	/**

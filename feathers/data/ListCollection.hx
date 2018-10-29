@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -179,6 +179,7 @@ class ListCollection extends EventDispatcher
 			data = [];
 		}
 		this.data = data;
+
 	}
 	
 	/**
@@ -207,43 +208,28 @@ class ListCollection extends EventDispatcher
 	 */
 	public function set_data(value:Dynamic):Dynamic
 	{
-		if(this._data == value)
+		if(_data == value)
 		{
 			return _data;
 		}
 		if(value == null)
 		{
-			this.removeAll();
+			removeAll();
 			return _data;
 		}
-		this._data = value;
+		_data = value;
+		
+		
+		//trace("LIST COLLECTION: set_data!");
 		//we'll automatically detect an array, vector, or xmllist for convenience
-		if(Std.is(this._data, Array) && !Std.is(this._dataDescriptor, ArrayListCollectionDataDescriptor))
+		if(Std.is(_data, Array) && !Std.is(_dataDescriptor, ArrayListCollectionDataDescriptor))
 		{
-			this.dataDescriptor = new ArrayListCollectionDataDescriptor();
+			dataDescriptor = new ArrayListCollectionDataDescriptor();
 		}
-		/*else if(Std.is(this._data, Array<Float>) && !Std.is(this._dataDescriptor, VectorFloatListCollectionDataDescriptor))
-		{
-			this.dataDescriptor = new VectorFloatListCollectionDataDescriptor();
-		}
-		else if(Std.is(this._data, Array<Int>) && !Std.is(this._dataDescriptor, VectorIntListCollectionDataDescriptor))
-		{
-			this.dataDescriptor = new VectorIntListCollectionDataDescriptor();
-		}
-		else if(Std.is(this._data, Array<UInt>) && !Std.is(this._dataDescriptor, VectorUintListCollectionDataDescriptor))
-		{
-			this.dataDescriptor = new VectorUintListCollectionDataDescriptor();
-		}*/
-		else if(Std.is(this._data, Array) && !Std.is(this._dataDescriptor, VectorListCollectionDataDescriptor))
-		{
-			this.dataDescriptor = new VectorListCollectionDataDescriptor();
-		}
-		/*else if(Std.is(this._data, XMLList) && !Std.is(this._dataDescriptor, XMLListListCollectionDataDescriptor))
-		{
-			this.dataDescriptor = new XMLListListCollectionDataDescriptor();
-		}*/
-		this.dispatchEventWith(CollectionEventType.RESET);
-		this.dispatchEventWith(Event.CHANGE);
+		
+		dispatchEventWith(CollectionEventType.RESET);
+		dispatchEventWith(Event.CHANGE);
+
 		return _data;
 	}
 	
@@ -320,9 +306,10 @@ class ListCollection extends EventDispatcher
 	 */
 	public function addItemAt(item:Dynamic, index:Int):Void
 	{
-		this._dataDescriptor.addItemAt(this._data, item, index);
-		this.dispatchEventWith(Event.CHANGE);
-		this.dispatchEventWith(CollectionEventType.ADD_ITEM, false, index);
+
+		_dataDescriptor.addItemAt(_data, item, index);
+		dispatchEventWith(Event.CHANGE);
+		dispatchEventWith(CollectionEventType.ADD_ITEM, false, index);
 	}
 	
 	/**
@@ -331,6 +318,7 @@ class ListCollection extends EventDispatcher
 	 */
 	public function removeItemAt(index:Int):Dynamic
 	{
+
 		var item:Dynamic = this._dataDescriptor.removeItemAt(this._data, index);
 		this.dispatchEventWith(Event.CHANGE);
 		this.dispatchEventWith(CollectionEventType.REMOVE_ITEM, false, index);
@@ -354,6 +342,7 @@ class ListCollection extends EventDispatcher
 	 */
 	public function removeAll():Void
 	{
+
 		if(this.length == 0)
 		{
 			return;
@@ -368,6 +357,7 @@ class ListCollection extends EventDispatcher
 	 */
 	public function setItemAt(item:Dynamic, index:Int):Void
 	{
+	
 		this._dataDescriptor.setItemAt(this._data, item, index);
 		this.dispatchEventWith(Event.CHANGE);
 		this.dispatchEventWith(CollectionEventType.REPLACE_ITEM, false, index);
@@ -394,6 +384,7 @@ class ListCollection extends EventDispatcher
 	 */
 	public function addAll(collection:ListCollection):Void
 	{
+	
 		var otherCollectionLength:Int = collection.length;
 		//for(var i:Int = 0; i < otherCollectionLength; i++)
 		for(i in 0 ... otherCollectionLength)

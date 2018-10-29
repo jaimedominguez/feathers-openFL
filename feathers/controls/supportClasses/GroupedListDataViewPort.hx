@@ -1,6 +1,8 @@
 /*
+ 
+
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -13,6 +15,7 @@ import feathers.controls.renderers.IGroupedListItemRenderer;
 import feathers.core.FeathersControl;
 import feathers.core.IFeathersControl;
 import feathers.core.PropertyProxy;
+import feathers.data.DataProperties;
 import feathers.data.HierarchicalCollection;
 import feathers.events.CollectionEventType;
 import feathers.events.FeathersEventType;
@@ -1419,11 +1422,13 @@ class GroupedListDataViewPort extends FeathersControl implements IViewPort
 		if (this._itemRendererProperties == null)
 			return;
 		var displayRenderer:DisplayObject = cast(renderer, DisplayObject);
-		for(propertyName in Reflect.fields(this._itemRendererProperties.storage))
+		
+		DataProperties.copyValuesFromObjectTo(_itemRendererProperties.storage, displayRenderer);
+		/*for(propertyName in Reflect.fields(this._itemRendererProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.field(this._itemRendererProperties.storage, propertyName);
 			Reflect.setProperty(displayRenderer, propertyName, propertyValue);
-		}
+		}*/
 	}
 
 	private function refreshOneHeaderRendererStyles(renderer:IGroupedListHeaderOrFooterRenderer):Void
@@ -1431,11 +1436,12 @@ class GroupedListDataViewPort extends FeathersControl implements IViewPort
 		if (this._headerRendererProperties == null)
 			return;
 		var displayRenderer:DisplayObject = cast(renderer, DisplayObject);
-		for(propertyName in Reflect.fields(this._headerRendererProperties.storage))
+		DataProperties.copyValuesFromObjectTo(_headerRendererProperties.storage, displayRenderer);
+		/*for(propertyName in Reflect.fields(this._headerRendererProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.field(this._headerRendererProperties.storage, propertyName);
 			Reflect.setProperty(displayRenderer, propertyName, propertyValue);
-		}
+		}*/
 	}
 
 	private function refreshOneFooterRendererStyles(renderer:IGroupedListHeaderOrFooterRenderer):Void
@@ -1443,11 +1449,12 @@ class GroupedListDataViewPort extends FeathersControl implements IViewPort
 		if (this._footerRendererProperties == null)
 			return;
 		var displayRenderer:DisplayObject = cast(renderer, DisplayObject);
-		for(propertyName in Reflect.fields(this._footerRendererProperties.storage))
+		DataProperties.copyValuesFromObjectTo(_footerRendererProperties.storage, displayRenderer);
+		/*for(propertyName in Reflect.fields(this._footerRendererProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.getProperty(this._footerRendererProperties.storage, propertyName);
 			Reflect.setProperty(displayRenderer, propertyName, propertyValue);
-		}
+		}*/
 	}
 
 	private function refreshSelection():Void

@@ -1,6 +1,8 @@
 /*
+ 
+
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -579,14 +581,14 @@ class StackScreenNavigator extends BaseScreenNavigator
 					eventListener = this.createPushScreenEventListener(cast(eventAction, String));
 					this._activeScreen.addEventListener(eventName, eventListener);
 				}
-				Reflect.setField(savedScreenEvents, eventName, eventListener);
+				Reflect.setProperty(savedScreenEvents, eventName, eventListener);
 			}
 			else
 			{
 				throw new TypeError("Unknown event action defined for screen:" + eventAction.toString());
 			}
 		}
-		Reflect.setField(this._pushScreenEvents, this._activeScreenID, savedScreenEvents);
+		Reflect.setProperty(this._pushScreenEvents, this._activeScreenID, savedScreenEvents);
 		var eventCount:Int;
 		var popEvents:Array<String> = null;
 		if(item.popEvents != null)
@@ -675,7 +677,7 @@ class StackScreenNavigator extends BaseScreenNavigator
 				}
 			}
 		}
-		Reflect.setField(this._pushScreenEvents, this._activeScreenID, null);
+		Reflect.setProperty(this._pushScreenEvents, this._activeScreenID, null);
 		var eventCount:Int;
 		if(this._popScreenEvents != null)
 		{

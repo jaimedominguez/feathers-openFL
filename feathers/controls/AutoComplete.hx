@@ -1,6 +1,8 @@
 /*
+ 
+
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -516,7 +518,7 @@ class AutoComplete extends TextInput
 			var newValue:PropertyProxy = new PropertyProxy();
 			for(propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue, propertyName, Reflect.field(value.storage, propertyName));
+				Reflect.setProperty(newValue, propertyName, Reflect.field(value.storage, propertyName));
 			}
 			value = newValue;
 		}

@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -1653,10 +1653,14 @@ class Header extends FeathersControl
 	{
 		if (this._titleProperties == null)
 			return;
-		for(propertyName in Reflect.fields(this._titleProperties.storage))
-		{
-			var propertyValue:Dynamic = Reflect.field(this._titleProperties.storage, propertyName);
-			Reflect.setProperty(this.titleTextRenderer, propertyName, propertyValue);
+			
+		for(key in _titleProperties.storage.iterator()){
+			var propertyName:String = key;
+			var propertyValue:Dynamic = _titleProperties.storage.get(propertyName);
+			if( propertyValue!=null){
+				
+				Reflect.setProperty(titleTextRenderer, propertyName, propertyValue);
+			}
 		}
 	}
 

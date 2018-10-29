@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -10,6 +10,7 @@ import feathers.core.FeathersControl;
 import feathers.core.IFeathersControl;
 import feathers.core.IFocusExtras;
 import feathers.core.PropertyProxy;
+import feathers.data.DataProperties;
 import feathers.events.FeathersEventType;
 import feathers.skins.IStyleProvider;
 
@@ -650,9 +651,13 @@ class Panel extends ScrollContainer implements IFocusExtras
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			/*for (propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
+			for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
 			}
 			value = newValue;
 		}
@@ -858,10 +863,15 @@ class Panel extends ScrollContainer implements IFocusExtras
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			/*for (propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
+			for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
 			}
+			
 			value = newValue;
 		}
 		if(this._footerProperties != null)
@@ -1321,11 +1331,13 @@ class Panel extends ScrollContainer implements IFocusExtras
 			Reflect.setProperty(this.header, this._headerTitleField, this._title);
 		}
 		if (this._headerProperties != null)
-			for (propertyName in Reflect.fields(this._headerProperties.storage))
+		
+		DataProperties.copyValuesFromDictionaryTo(_headerProperties.storage, header);
+		/*	for (propertyName in Reflect.fields(this._headerProperties.storage))
 			{
 				var propertyValue:Dynamic = Reflect.field(this._headerProperties.storage, propertyName);
 				Reflect.setProperty(this.header, propertyName, propertyValue);
-			}
+			}*/
 	}
 
 	/**
@@ -1335,11 +1347,12 @@ class Panel extends ScrollContainer implements IFocusExtras
 	{
 		if (this._footerProperties == null)
 			return;
-		for (propertyName in Reflect.fields(this._footerProperties.storage))
+		/*for (propertyName in Reflect.fields(this._footerProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.field(this._footerProperties.storage, propertyName);
 			Reflect.setProperty(this.footer, propertyName, propertyValue);
-		}
+		}*/
+		DataProperties.copyValuesFromDictionaryTo(_footerProperties.storage, footer);
 	}
 
 	/**

@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -84,7 +84,7 @@ import openfl.geom.Rectangle;
  * Basic interface for Feathers UI controls. A Feathers control must also
  * be a Starling display object.
  */
-interface IFeathersControl extends IValidating
+interface IFeathersControl extends IValidating 
 {
 	/**
 	 * @copy feathers.core.FeathersControl#minWidth

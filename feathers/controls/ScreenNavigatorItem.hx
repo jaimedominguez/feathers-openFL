@@ -1,13 +1,15 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
 */
 package feathers.controls;
 import feathers.controls.supportClasses.IScreenNavigatorItem;
+import feathers.data.DataProperties;
 import openfl.errors.ArgumentError;
+import openfl.utils.Dictionary;
 
 import starling.display.DisplayObject;
 
@@ -37,11 +39,17 @@ class ScreenNavigatorItem implements IScreenNavigatorItem
 	/**
 	 * Constructor.
 	 */
-	public function new(screen:Dynamic = null, events:Dynamic= null, properties:Dynamic = null)
+	public function new(screen:Dynamic = null, events:Dictionary<String,String>= null, properties:Dynamic = null)
 	{
 		this._screen = screen;
-		this._events = events ? events : {};
-		this._properties = properties ? properties : {};
+		if (events != null) {
+		this._events = 	events;
+		}
+		//this._events = (events=!null) ? events : {};
+		if (properties != null) {
+			this._properties = 	properties;
+		}
+		//this._properties = properties ? properties : {};
 	}
 
 	/**
@@ -92,7 +100,7 @@ class ScreenNavigatorItem implements IScreenNavigatorItem
 	/**
 	 * @private
 	 */
-	private var _events:Dynamic;
+	private var _events:Dictionary<String,String>;
 	
 	/**
 	 * A set of key-value pairs representing actions that should be
@@ -108,8 +116,8 @@ class ScreenNavigatorItem implements IScreenNavigatorItem
 	 * @see #setFunctionForEvent()
 	 * @see #setScreenIDForEvent()
 	 */
-	public var events(get, set):Dynamic;
-	public function get_events():Dynamic
+	public var events(get, set):Dictionary<String,String>;
+	public function get_events():Dictionary<String,String>
 	{
 		return this._events;
 	}
@@ -117,12 +125,12 @@ class ScreenNavigatorItem implements IScreenNavigatorItem
 	/**
 	 * @private
 	 */
-	public function set_events(value:Dynamic):Dynamic
+	public function set_events(value:Dictionary<String,String>):Dictionary<String,String>
 	{
-		if(!value)
+		/*if(value==null)
 		{
-			value = {};
-		}
+			value = new Dictionary
+		}*/
 		this._events = value;
 		return get_events();
 	}
@@ -182,7 +190,7 @@ class ScreenNavigatorItem implements IScreenNavigatorItem
 	 */
 	public function setFunctionForEvent(eventType:String, action:Dynamic):Void
 	{
-		Reflect.setField(this._events, eventType, action);
+		Reflect.setProperty(this._events, eventType, action);
 	}
 
 	/**
@@ -202,7 +210,7 @@ class ScreenNavigatorItem implements IScreenNavigatorItem
 	 */
 	public function setScreenIDForEvent(eventType:String, screenID:String):Void
 	{
-		Reflect.setField(this._events, eventType, screenID);
+		Reflect.setProperty(this._events, eventType, screenID);
 	}
 
 	/**
@@ -221,6 +229,8 @@ class ScreenNavigatorItem implements IScreenNavigatorItem
 	 */
 	public function getScreen():DisplayObject
 	{
+		
+	//	trace("getScreen()" + _screen);
 		var screenInstance:DisplayObject;
 		if(Std.is(this._screen, Class))
 		{
@@ -242,10 +252,11 @@ class ScreenNavigatorItem implements IScreenNavigatorItem
 		
 		if(this._properties)
 		{
-			for(propertyName in Reflect.fields(this._properties))
+			DataProperties.copyValuesFromObjectTo(_properties, screenInstance);
+			/*for(propertyName in Reflect.fields(this._properties))
 			{
 				Reflect.setProperty(screenInstance, propertyName, Reflect.field(this._properties, propertyName));
-			}
+			}*/
 		}
 		
 		return screenInstance;

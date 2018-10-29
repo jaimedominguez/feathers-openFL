@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -9,6 +9,7 @@ package feathers.controls;
 import feathers.core.FeathersControl;
 import feathers.core.INativeFocusOwner;
 import feathers.core.PropertyProxy;
+import feathers.data.DataProperties;
 import feathers.events.ExclusiveTouch;
 import feathers.events.FeathersEventType;
 import feathers.skins.IStyleProvider;
@@ -1010,10 +1011,17 @@ class NumericStepper extends FeathersControl implements IRange implements INativ
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			/*for (propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
-			}
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
+			
+			DataProperties.copyValuesFromObjectTo(value.storage, newValue.storage);
+				
+			/*for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
+			}*/
 			value = newValue;
 		}
 		if(this._decrementButtonProperties != null)
@@ -1251,10 +1259,16 @@ class NumericStepper extends FeathersControl implements IRange implements INativ
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			/*for (propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
-			}
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
+			/*for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
+			}*/
+			DataProperties.copyValuesFromObjectTo(value, newValue.storage);
+				
 			value = newValue;
 		}
 		if(this._incrementButtonProperties != null)
@@ -1490,10 +1504,16 @@ class NumericStepper extends FeathersControl implements IRange implements INativ
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			/*for (propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
-			}
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
+			/*for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
+			}*/
+			DataProperties.copyValuesFromObjectTo(value.storage, newValue.storage);
+				
 			value = newValue;
 		}
 		if(this._textInputProperties != null)
@@ -1555,8 +1575,8 @@ class NumericStepper extends FeathersControl implements IRange implements INativ
 
 		if(textInputFactoryInvalid || dataInvalid)
 		{
-			this.refreshTypicalText();
-			this.refreshDisplayedText();
+			//this.refreshTypicalText();
+			//this.refreshDisplayedText();
 		}
 
 		if(decrementButtonFactoryInvalid || stateInvalid)
@@ -1571,10 +1591,10 @@ class NumericStepper extends FeathersControl implements IRange implements INativ
 
 		if(textInputFactoryInvalid || stateInvalid)
 		{
-			this.textInput.isEnabled = this._isEnabled;
+			//this.textInput.isEnabled = this._isEnabled;
 		}
 
-		sizeInvalid = this.autoSizeIfNeeded() || sizeInvalid;
+		//sizeInvalid = this.autoSizeIfNeeded() || sizeInvalid;
 
 		if(decrementButtonFactoryInvalid || incrementButtonFactoryInvalid || textInputFactoryInvalid ||
 			dataInvalid || stylesInvalid || sizeInvalid)
@@ -1689,6 +1709,7 @@ class NumericStepper extends FeathersControl implements IRange implements INativ
 			this.validate();
 			this.textInput.selectRange(0, this.textInput.text.length);
 		}
+		
 	}
 
 	/**
@@ -1823,11 +1844,18 @@ class NumericStepper extends FeathersControl implements IRange implements INativ
 	{
 		if (this.decrementButtonProperties != null)
 		{
-			for (propertyName in Reflect.fields(this._decrementButtonProperties.storage))
+			/*for (propertyName in Reflect.fields(this._decrementButtonProperties.storage))
 			{
 				var propertyValue:Dynamic = Reflect.field(this._decrementButtonProperties.storage, propertyName);
 				Reflect.setProperty(this.decrementButton, propertyName, propertyValue);
-			}
+			}*/
+			/*for (propertyName in _decrementButtonProperties.iterator()) {
+				var propertyValue:Dynamic = _decrementButtonProperties.get(propertyName);
+				Reflect.setProperty(decrementButton, propertyName, propertyValue);
+			}*/
+			DataProperties.copyValuesFromDictionaryTo(_decrementButtonProperties.storage, decrementButton);
+				
+			
 		}
 		this.decrementButton.label = this._decrementButtonLabel;
 	}
@@ -1839,11 +1867,13 @@ class NumericStepper extends FeathersControl implements IRange implements INativ
 	{
 		if (this._incrementButtonProperties != null)
 		{
+			DataProperties.copyValuesFromObjectTo(_incrementButtonProperties.storage, incrementButton);
+			/*
 			for (propertyName in Reflect.fields(this._incrementButtonProperties.storage))
 			{
 				var propertyValue:Dynamic = Reflect.field(this._incrementButtonProperties.storage, propertyName);
 				Reflect.setProperty(this.incrementButton, propertyName, propertyValue);
-			}
+			}*/
 		}
 		this.incrementButton.label = this._incrementButtonLabel;
 	}
@@ -1855,11 +1885,12 @@ class NumericStepper extends FeathersControl implements IRange implements INativ
 	{
 		if (this.textInputProperties != null)
 		{
-			for (propertyName in Reflect.fields(this._textInputProperties.storage))
+			DataProperties.copyValuesFromDictionaryTo(_textInputProperties.storage, textInput);
+			/*for (propertyName in Reflect.fields(this._textInputProperties.storage))
 			{
 				var propertyValue:Dynamic = Reflect.field(this._textInputProperties.storage, propertyName);
 				Reflect.setProperty(this.textInput, propertyName, propertyValue);
-			}
+			}*/
 		}
 	}
 

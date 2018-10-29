@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -8,6 +8,7 @@ accordance with the terms of the accompanying license agreement.
 package feathers.controls;
 import feathers.core.FeathersControl;
 import feathers.core.PropertyProxy;
+import feathers.data.DataProperties;
 import feathers.events.FeathersEventType;
 import feathers.skins.IStyleProvider;
 import feathers.utils.math.FeathersMathUtil.clamp;
@@ -914,10 +915,11 @@ class SimpleScrollBar extends FeathersControl implements IDirectionalScrollBar
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			DataProperties.copyValuesFromDictionaryTo(value.storage, newValue.storage);
+			/*for (propertyName in Reflect.fields(value.storagenewValue.storage
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
-			}
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
 			value = newValue;
 		}
 		if(this._thumbProperties != null)
@@ -1147,11 +1149,13 @@ class SimpleScrollBar extends FeathersControl implements IDirectionalScrollBar
 	{
 		if (this._thumbProperties == null)
 			return;
-		for (propertyName in Reflect.fields(this._thumbProperties.storage))
+			
+			DataProperties.copyValuesFromDictionaryTo(_thumbProperties.storage, thumb);
+		/*for (propertyName in Reflect.fields(this._thumbProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.field(this._thumbProperties.storage, propertyName);
 			Reflect.setProperty(this.thumb, propertyName, propertyValue);
-		}
+		}*/
 	}
 
 	/**

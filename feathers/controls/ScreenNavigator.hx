@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -11,6 +11,7 @@ import feathers.events.FeathersEventType;
 import feathers.skins.IStyleProvider;
 import openfl.errors.Error;
 import openfl.errors.TypeError;
+import openfl.utils.Dictionary;
 
 import starling.display.DisplayObject;
 import starling.events.Event;
@@ -224,14 +225,20 @@ class ScreenNavigator extends BaseScreenNavigator
 	 */
 	override private function prepareActiveScreen():Void
 	{
+		
+		
+	//	trace("prepareActiveScreen:");
 		var item:ScreenNavigatorItem = cast(this._screens[this._activeScreenID], ScreenNavigatorItem);
-		var events:Dynamic = item.events;
+		var events:Dictionary<String,String> = item.events;
 		var savedScreenEvents:Map<String, Dynamic->Void> = new Map();
-		for (eventName in Reflect.fields(events))
+		for (eventName in events.iterator())
 		{
+			
+			//trace("**screen has event called:"+eventName);
+			
 			var prop = Reflect.getProperty(this._activeScreen, eventName);
 			var signal:Dynamic =  prop/* != null ? cast(prop, BaseScreenNavigator.SIGNAL_TYPE) : null*/;
-			var eventAction:Dynamic = Reflect.field(events, eventName);
+			var eventAction:Dynamic = events[eventName];
 			if(Reflect.isFunction(eventAction))
 			{
 				if(signal != null)
@@ -272,13 +279,13 @@ class ScreenNavigator extends BaseScreenNavigator
 	override private function cleanupActiveScreen():Void
 	{
 		var item:ScreenNavigatorItem = cast(this._screens[this._activeScreenID], ScreenNavigatorItem);
-		var events:Dynamic = item.events;
+		var events:Dictionary<String,String> = item.events;
 		var savedScreenEvents:Map<String, Dynamic->Void> = this._screenEvents[this._activeScreenID];
-		for (eventName in Reflect.fields(events))
+		for (eventName in events)
 		{
 			var prop = Reflect.getProperty(this._activeScreen, eventName);
 			var signal:Dynamic = prop /*!= null ? cast(prop, BaseScreenNavigator.SIGNAL_TYPE) : null*/;
-			var eventAction:Dynamic = Reflect.field(events, eventName);
+			var eventAction:Dynamic = events[eventName];
 			if(Reflect.isFunction(eventAction))
 			{
 				if(signal != null)

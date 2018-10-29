@@ -1,12 +1,15 @@
 /*
+ 
+
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
 */
 package feathers.controls;
 import feathers.controls.supportClasses.IScreenNavigatorItem;
+import feathers.data.DataProperties;
 
 import starling.display.DisplayObject;
 
@@ -387,7 +390,7 @@ class StackScreenNavigatorItem implements IScreenNavigatorItem
 	 */
 	public function setFunctionForPushEvent(eventType:String, action:Dynamic):Void
 	{
-		Reflect.setField(this._pushEvents, eventType, action);
+		Reflect.setProperty(this._pushEvents, eventType, action);
 	}
 
 	/**
@@ -408,7 +411,7 @@ class StackScreenNavigatorItem implements IScreenNavigatorItem
 	 */
 	public function setScreenIDForPushEvent(eventType:String, screenID:String):Void
 	{
-		Reflect.setField(this._pushEvents, eventType, screenID);
+		Reflect.setProperty(this._pushEvents, eventType, screenID);
 	}
 
 	/**
@@ -559,10 +562,11 @@ class StackScreenNavigatorItem implements IScreenNavigatorItem
 		}
 		if(this._properties)
 		{
-			for(propertyName in Reflect.fields(this._properties))
+			DataProperties.copyValuesFromDictionaryTo(_properties, screenInstance);
+			/*for(propertyName in Reflect.fields(this._properties))
 			{
 				Reflect.setProperty(screenInstance, propertyName, Reflect.field(this._properties, propertyName));
-			}
+			}*/
 		}
 
 		return screenInstance;

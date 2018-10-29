@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -8,6 +8,7 @@ accordance with the terms of the accompanying license agreement.
 package feathers.controls;
 import feathers.core.FeathersControl;
 import feathers.core.PropertyProxy;
+import feathers.data.DataProperties;
 import feathers.events.FeathersEventType;
 import feathers.skins.IStyleProvider;
 import feathers.utils.math.FeathersMathUtil.clamp;
@@ -1319,10 +1320,15 @@ class ScrollBar extends FeathersControl implements IDirectionalScrollBar
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			/*for (propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
-			}
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
+			DataProperties.copyValuesFromObjectTo(value, newValue.storage);
+			/*for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
+			}*/
 			value = newValue;
 		}
 		if(this._minimumTrackProperties != null)
@@ -1524,10 +1530,15 @@ class ScrollBar extends FeathersControl implements IDirectionalScrollBar
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			DataProperties.copyValuesFromObjectTo(value, newValue.storage);
+			/*for (propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
-			}
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
+			/*for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
+			}*/
 			value = newValue;
 		}
 		if(this._maximumTrackProperties != null)
@@ -1729,10 +1740,15 @@ class ScrollBar extends FeathersControl implements IDirectionalScrollBar
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			DataProperties.copyValuesFromObjectTo(value, newValue.storage);
+			/*for (propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
-			}
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
+			/*for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
+			}*/
 			value = newValue;
 		}
 		if(this._thumbProperties != null)
@@ -1935,9 +1951,13 @@ class ScrollBar extends FeathersControl implements IDirectionalScrollBar
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			/*for (propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
+			for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
 			}
 			value = newValue;
 		}
@@ -2141,10 +2161,16 @@ class ScrollBar extends FeathersControl implements IDirectionalScrollBar
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			DataProperties.copyValuesFromObjectTo(value, newValue.storage);
+			/*for (propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
-			}
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
+			
+			/*for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
+			}*/
 			value = newValue;
 		}
 		if(this._incrementButtonProperties != null)
@@ -2557,10 +2583,14 @@ class ScrollBar extends FeathersControl implements IDirectionalScrollBar
 	 */
 	private function refreshThumbStyles():Void
 	{
-		for (propertyName in Reflect.fields(this._thumbProperties.storage))
+		/*for (propertyName in Reflect.fields(this._thumbProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.field(this._thumbProperties.storage, propertyName);
 			Reflect.setProperty(this.thumb, propertyName, propertyValue);
+		}*/
+		for (propertyName in _thumbProperties.iterator()) {
+			var propertyValue:Dynamic = _thumbProperties.get(propertyName);
+			Reflect.setProperty(thumb, propertyName, propertyValue);
 		}
 	}
 
@@ -2569,11 +2599,13 @@ class ScrollBar extends FeathersControl implements IDirectionalScrollBar
 	 */
 	private function refreshMinimumTrackStyles():Void
 	{
-		for (propertyName in Reflect.fields(this._minimumTrackProperties.storage))
+		DataProperties.copyValuesFromDictionaryTo(_minimumTrackProperties.storage, minimumTrack);
+		
+		/*for (propertyName in Reflect.fields(this._minimumTrackProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.field(this._minimumTrackProperties.storage, propertyName);
 			Reflect.setProperty(this.minimumTrack, propertyName, propertyValue);
-		}
+		}*/
 	}
 
 	/**
@@ -2585,11 +2617,14 @@ class ScrollBar extends FeathersControl implements IDirectionalScrollBar
 		{
 			return;
 		}
-		for (propertyName in Reflect.fields(this._maximumTrackProperties.storage))
+		DataProperties.copyValuesFromDictionaryTo(_maximumTrackProperties.storage, maximumTrack);
+		
+		//DataProperties.copyValuesFromDictionaryTo(minimumTrackProperties.storage, minimumTrack);
+		/*for (propertyName in Reflect.fields(this._maximumTrackProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.field(this._maximumTrackProperties.storage, propertyName);
 			Reflect.setProperty(this.maximumTrack, propertyName, propertyValue);
-		}
+		}*/
 	}
 
 	/**
@@ -2597,11 +2632,16 @@ class ScrollBar extends FeathersControl implements IDirectionalScrollBar
 	 */
 	private function refreshDecrementButtonStyles():Void
 	{
-		for (propertyName in Reflect.fields(this._decrementButtonProperties.storage))
+		DataProperties.copyValuesFromDictionaryTo(_decrementButtonProperties.storage, decrementButton);
+		/*for (propertyName in Reflect.fields(this._decrementButtonProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.field(this._decrementButtonProperties.storage, propertyName);
 			Reflect.setProperty(this.decrementButton, propertyName, propertyValue);
-		}
+		}*/
+		/*for (propertyName in _decrementButtonProperties.iterator()) {
+			var propertyValue:Dynamic = _decrementButtonProperties.get(propertyName);
+			Reflect.setProperty(decrementButton, propertyName, propertyValue);
+		}*/
 	}
 
 	/**
@@ -2609,11 +2649,12 @@ class ScrollBar extends FeathersControl implements IDirectionalScrollBar
 	 */
 	private function refreshIncrementButtonStyles():Void
 	{
-		for (propertyName in Reflect.fields(this._incrementButtonProperties.storage))
+		DataProperties.copyValuesFromDictionaryTo(_incrementButtonProperties.storage, incrementButton);
+		/*for (propertyName in Reflect.fields(this._incrementButtonProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.field(this._incrementButtonProperties.storage, propertyName);
 			Reflect.setProperty(this.incrementButton, propertyName, propertyValue);
-		}
+		}*/
 	}
 
 	/**

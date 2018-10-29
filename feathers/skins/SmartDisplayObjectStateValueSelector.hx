@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -212,9 +212,9 @@ class SmartDisplayObjectStateValueSelector extends StateWithToggleValueSelector<
 		var className:String = Type.getClassName(Type.getClass(target));
 		var instanceFields:Array<String> = Type.getInstanceFields(Type.getClass(displayObject));
 		if (this._displayObjectProperties != null)
-        	for (propertyName in Reflect.fields(this._displayObjectProperties.storage))
+        	for (propertyName in _displayObjectProperties.storage.iterator())
 			{
-				var propertyValue:Dynamic = Reflect.field(this._displayObjectProperties.storage, propertyName);
+				var propertyValue:Dynamic = _displayObjectProperties.storage[propertyName];
 				if (instanceFields.indexOf("get_" + propertyName) == -1)
 					trace('Couldn\'t find a property named "$propertyName" from $className"');
 				Reflect.setProperty(displayObject, propertyName, propertyValue);

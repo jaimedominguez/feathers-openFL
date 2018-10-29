@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -13,6 +13,7 @@ import feathers.core.FeathersControl;
 import feathers.core.IFocusDisplayObject;
 import feathers.core.IToggle;
 import feathers.core.PropertyProxy;
+import feathers.data.DataProperties;
 import feathers.data.ListCollection;
 import feathers.events.CollectionEventType;
 import feathers.events.FeathersEventType;
@@ -939,10 +940,18 @@ class PickerList extends FeathersControl implements IFocusDisplayObject
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			/*for (propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
-			}
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
+			DataProperties.copyValuesFromObjectTo(value, newValue.storage);
+			/*
+			for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
+			}*/
+			
+			
 			value = newValue;
 		}
 		if(this._buttonProperties != null)
@@ -1143,10 +1152,15 @@ class PickerList extends FeathersControl implements IFocusDisplayObject
 		if(!(Std.is(value, PropertyProxy)))
 		{
 			var newValue:PropertyProxy = new PropertyProxy();
-			for (propertyName in Reflect.fields(value.storage))
+			/*for (propertyName in Reflect.fields(value.storage))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
-			}
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value.storage, propertyName));
+			}*/
+			/*for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
+			}*/
+			DataProperties.copyValuesFromObjectTo(value, newValue.storage);
 			value = newValue;
 		}
 		if(this._listProperties != null)
@@ -1246,7 +1260,8 @@ class PickerList extends FeathersControl implements IFocusDisplayObject
 			}
 			return labelResult.toString();
 		}
-		else if(this._labelField != null && item && item.hasOwnProperty(this._labelField))
+		//else if (this._labelField != null && item && item.hasOwnProperty(this._labelField))
+		else if(this._labelField != null && (item!=null) && Reflect.hasField(item,_labelField))
 		{
 			labelResult = Reflect.getProperty(item, this._labelField);
 			if(Std.is(labelResult, String))
@@ -1668,11 +1683,17 @@ class PickerList extends FeathersControl implements IFocusDisplayObject
 	{
 		if (this._buttonProperties == null)
 			return;
-		for (propertyName in Reflect.fields(this._buttonProperties.storage))
+		/*for (propertyName in Reflect.fields(this._buttonProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.field(this._buttonProperties.storage, propertyName);
 			Reflect.setProperty(this.button, propertyName, propertyValue);
+		}*/
+		
+		for (propertyName in _buttonProperties.storage.iterator()) {
+			var propertyValue:Dynamic = _buttonProperties.storage.get(propertyName);
+			Reflect.setProperty(button, propertyName, propertyValue);
 		}
+		
 	}
 	
 	/**
@@ -1682,11 +1703,12 @@ class PickerList extends FeathersControl implements IFocusDisplayObject
 	{
 		if (this._listProperties == null)
 			return;
-		for (propertyName in Reflect.fields(this._listProperties.storage))
+			DataProperties.copyValuesFromObjectTo(_listProperties.storage, list);
+	/*	for (propertyName in Reflect.fields(this._listProperties.storage))
 		{
 			var propertyValue:Dynamic = Reflect.field(this._listProperties.storage, propertyName);
 			Reflect.setProperty(this.list, propertyName, propertyValue);
-		}
+		}*/
 	}
 
 	/**

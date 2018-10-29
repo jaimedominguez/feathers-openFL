@@ -1,11 +1,15 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
 */
 package feathers.skins;
+import feathers.core.PropertyProxy;
+import feathers.data.DataProperties;
+import openfl.errors.ArgumentError;
+import openfl.utils.Dictionary;
 import starling.display.Image;
 import starling.textures.Texture;
 
@@ -16,17 +20,16 @@ import starling.textures.Texture;
  */
 class ImageStateValueSelector extends StateWithToggleValueSelector
 {
-	/**
-	 * Constructor.
-	 */
+
 	public function new()
 	{
+		super();
 	}
 
 	/**
 	 * @private
 	 */
-	private var _imageProperties:Dynamic;
+	private var _imageProperties:PropertyProxy;
 
 	/**
 	 * Optional properties to set on the Image instance.
@@ -34,11 +37,12 @@ class ImageStateValueSelector extends StateWithToggleValueSelector
 	 * @see http://doc.starling-framework.org/core/starling/display/Image.html starling.display.Image
 	 */
 	public var imageProperties(get, set):PropertyProxy;
+
 	public function get_imageProperties():PropertyProxy
 	{
-		if(!this._imageProperties)
+		if(this._imageProperties == null)
 		{
-			this._imageProperties = {};
+			this._imageProperties = new PropertyProxy();
 		}
 		return this._imageProperties;
 	}
@@ -48,7 +52,9 @@ class ImageStateValueSelector extends StateWithToggleValueSelector
 	 */
 	public function set_imageProperties(value:PropertyProxy):PropertyProxy
 	{
-		this._imageProperties = value;
+		trace("FUNCTINON DISABLED************************");
+		return new PropertyProxy();
+		//return _imageProperties.storage == value..storage(value);
 	}
 
 	/**
@@ -68,15 +74,16 @@ class ImageStateValueSelector extends StateWithToggleValueSelector
 	 */
 	override public function updateValue(target:Dynamic, state:Dynamic, oldValue:Dynamic = null):Dynamic
 	{
-		var texture:Texture = super.updateValue(target, state) as Texture;
-		if(!texture)
+		var texture:Texture = cast(super.updateValue(target, state),Texture);
+		if(texture==null)
 		{
 			return null;
 		}
+		var image:Image;
 
 		if(Std.is(oldValue, Image))
 		{
-			var image:Image = Image(oldValue);
+			image = oldValue;
 			image.texture = texture;
 			image.readjustSize();
 		}
@@ -84,12 +91,18 @@ class ImageStateValueSelector extends StateWithToggleValueSelector
 		{
 			image = new Image(texture);
 		}
-
-		for (propertyName in this._imageProperties)
+		
+		DataProperties.copyValuesFromDictionaryTo(_imageProperties.storage, image);
+/*
+		for (propertyName in this._imageProperties.storage)
 		{
-			var propertyValue:Dynamic = this._imageProperties[propertyName];
-			image[propertyName] = propertyValue;
-		}
+			var propertyValue:Dynamic = this._imageProperties.getProperty(propertyName);
+			Reflect.setProperty(image,propertyName, propertyValue);
+		}*/
+		/*for (propertyName in value.storage.iterator()) {
+				var propertyValue:Dynamic = value.storage.get(propertyName);
+				Reflect.setProperty(newValue.storage, propertyName, propertyValue);
+			}*/
 
 		return image;
 	}

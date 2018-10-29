@@ -1,6 +1,8 @@
 /*
+ 
+
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -461,7 +463,7 @@ class MuteToggleButton extends ToggleButton implements IMediaPlayerControl
 			var newValue:PropertyProxy = new PropertyProxy();
 			for(propertyName in Reflect.fields(value))
 			{
-				Reflect.setField(newValue.storage, propertyName, Reflect.field(value, propertyName));
+				Reflect.setProperty(newValue.storage, propertyName, Reflect.field(value, propertyName));
 			}
 			value = newValue;
 		}

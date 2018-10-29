@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved. 
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -77,6 +77,7 @@ class Scale9Image extends Sprite implements IValidating
 	public function new(textures:Scale9Textures, textureScale:Float = 1)
 	{
 		super();
+		set_textures(textures);
 		this.textures = textures;
 		this._textureScale = textureScale;
 		this._hitArea = new Rectangle();
@@ -134,6 +135,7 @@ class Scale9Image extends Sprite implements IValidating
 	 */
 	public function set_textures(value:Scale9Textures):Scale9Textures
 	{
+		
 		if(value == null)
 		{
 			throw new IllegalOperationError("Scale9Image textures cannot be null.");

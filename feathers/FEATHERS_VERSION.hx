@@ -1,4 +1,6 @@
 /*
+ 
+
 Feathers
 Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
 
@@ -19,3 +21,6 @@ package feathers
  */
 public const FEATHERS_VERSION:String = "2.2.0";
 }
+
+/*Unofficial Feathers port to Haxe (openFL , compatible with Starling 1.8)
+by Jaime Dominguez / KaleidoGames for 'Beekyr Reloaded' in 2018. */
