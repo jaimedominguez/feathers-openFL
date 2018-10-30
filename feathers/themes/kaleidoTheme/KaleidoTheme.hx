@@ -704,10 +704,7 @@ class KaleidoTheme extends DisplayListWatcher
         iconSelector.imageProperties.setProperty("scaleY", scale);
        
         radio.stateToIconFunction = iconSelector.updateValue;
-        
-        //radio.defaultLabelProperties.textFormat = new TextFormat(fontName, fontSize, PRIMARY_TEXT_COLOR, fontBold);
-        //radio.defaultSelectedLabelProperties.textFormat = new TextFormat(fontName, fontSize, SELECTED_TEXT_COLOR, fontBold);
-        
+         
         radio.minTouchWidth = radio.minTouchHeight = 88 * scale;
         radio.horizontalAlign = Button.HORIZONTAL_ALIGN_LEFT;
         radio.verticalAlign = Button.VERTICAL_ALIGN_MIDDLE;
@@ -716,9 +713,9 @@ class KaleidoTheme extends DisplayListWatcher
     private function toggleSwitchInitializer(toggleSwitch : ToggleSwitch) : Void
     {
         toggleSwitch.trackLayoutMode = ToggleSwitch.TRACK_LAYOUT_MODE_SINGLE;
-        
-        //toggleSwitch.defaultLabelProperties.textFormat = new TextFormat(fontName, Std.int(fontSize * 0.9), PRIMARY_TEXT_COLOR, fontBold);
-       // toggleSwitch.onLabelProperties.textFormat = new TextFormat(fontName, Std.int(fontSize * 0.9), SELECTED_TEXT_COLOR, fontBold);
+        toggleSwitch.defaultLabelProperties.setProperty("textFormat", new TextFormat(fontName, Std.int(fontSize * 0.9), PRIMARY_TEXT_COLOR, fontBold));
+        toggleSwitch.onLabelProperties.setProperty("textFormat", new TextFormat(fontName, Std.int(fontSize * 0.9), SELECTED_TEXT_COLOR, fontBold));
+   
     }
     
     private function itemRendererInitializer(renderer : BaseDefaultItemRenderer) : Void
@@ -751,10 +748,6 @@ class KaleidoTheme extends DisplayListWatcher
         renderer.accessoryLoaderFactory = imageLoaderFactory;
         renderer.iconLoaderFactory = imageLoaderFactory;
 		
-		
-		//renderer.fac.itemRendererFactory.
-		// _list.itemRendererProperties.setProperty("iconSourceField","thumbnail");
-       // _list.itemRendererProperties.setProperty("labelField","label");
     }
     
     private function headerOrFooterRendererInitializer(renderer : DefaultGroupedListHeaderOrFooterRenderer) : Void

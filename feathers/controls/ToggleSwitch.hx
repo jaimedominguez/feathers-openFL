@@ -6,6 +6,7 @@ This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
 */
 package feathers.controls;
+import feathers.controls.text.TextFieldTextRenderer;
 import feathers.core.FeathersControl;
 import feathers.core.IFocusDisplayObject;
 import feathers.core.ITextRenderer;
@@ -1206,6 +1207,8 @@ class ToggleSwitch extends FeathersControl implements IToggle implements IFocusD
 	 */
 	public function set_isSelected(value:Bool):Bool
 	{
+	
+		
 		this._animateSelectionChange = false;
 		if(this._isSelected == value)
 		{
@@ -1214,6 +1217,8 @@ class ToggleSwitch extends FeathersControl implements IToggle implements IFocusD
 		this._isSelected = value;
 		this.invalidate(FeathersControl.INVALIDATION_FLAG_SELECTED);
 		this.dispatchEventWith(Event.CHANGE);
+		
+		
 		return get_isSelected();
 	}
 
@@ -2485,7 +2490,7 @@ class ToggleSwitch extends FeathersControl implements IToggle implements IFocusD
 			this.onTextRenderer.visible = false;
 			return;
 		}
-
+	
 		var properties:PropertyProxy = null;
 		if(!this._isEnabled)
 		{
@@ -2501,15 +2506,12 @@ class ToggleSwitch extends FeathersControl implements IToggle implements IFocusD
 		}
 
 		this.onTextRenderer.text = this._onText;
+		
 		if(properties != null)
 		{
 			var displayRenderer:DisplayObject = cast(this.onTextRenderer, DisplayObject);
 			DataProperties.copyValuesFromDictionaryTo(properties.storage, displayRenderer);
-			/*for (propertyName in Reflect.fields(properties.storage))
-			{
-				var propertyValue:Dynamic = Reflect.field(properties.storage, propertyName);
-				Reflect.setProperty(displayRenderer, propertyName, propertyValue);
-			}*/
+			
 		}
 		this.onTextRenderer.validate();
 		this.onTextRenderer.visible = true;
@@ -2520,6 +2522,7 @@ class ToggleSwitch extends FeathersControl implements IToggle implements IFocusD
 	 */
 	private function refreshOffLabelStyles():Void
 	{
+		
 		//no need to style the label field if there's no text to display
 		if(!this._showLabels || !this._showThumb)
 		{
@@ -2540,19 +2543,12 @@ class ToggleSwitch extends FeathersControl implements IToggle implements IFocusD
 		{
 			properties = this._defaultLabelProperties;
 		}
-
+		
 		this.offTextRenderer.text = this._offText;
 		if(properties != null)
 		{
 			var displayRenderer:DisplayObject = cast(this.offTextRenderer, DisplayObject);
-			
 			DataProperties.copyValuesFromDictionaryTo(properties.storage,displayRenderer);
-			/*
-			for (propertyName in Reflect.fields(properties.storage))
-			{
-				var propertyValue:Dynamic = Reflect.field(properties.storage, propertyName);
-				Reflect.setProperty(displayRenderer, propertyName, propertyValue);
-			}*/
 		}
 		this.offTextRenderer.validate();
 		this.offTextRenderer.visible = true;

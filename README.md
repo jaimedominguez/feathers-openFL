@@ -1,5 +1,6 @@
 # feathers-openfl
 Unofficial port of Feathers UI Framework. Currently based on Feathers 2.2.0, designed for openFL and Starling 1.8.
+Modified to suits my needs and port it quickly to Haxe keeping all or almost all needed functionalities for Beekyr Reloaded menus.
 
 Install
 -------
