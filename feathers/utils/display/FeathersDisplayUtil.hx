@@ -5,6 +5,8 @@ import starling.display.Stage;
 
 class FeathersDisplayUtil
 {
+	
+	public static var scaleFactor:Float = 1;
 
 /**
  * Calculates a scale value to maintain aspect ratio and fill the required

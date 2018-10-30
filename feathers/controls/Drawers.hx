@@ -13,6 +13,7 @@ import feathers.events.ExclusiveTouch;
 import feathers.events.FeathersEventType;
 import feathers.skins.IStyleProvider;
 import feathers.system.DeviceCapabilities;
+import feathers.utils.display.FeathersDisplayUtil;
 import feathers.utils.display.FeathersDisplayUtil.getDisplayObjectDepthFromStage;
 import feathers.utils.math.FeathersMathUtil.roundToNearest;
 
@@ -2953,7 +2954,7 @@ class Drawers extends FeathersControl
 				var isNearAnyEdge:Bool = false;
 				if(this._topDrawer != null && !this.isTopDrawerDocked)
 				{
-					var topInches:Float = localY / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+					var topInches:Float = localY / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 					if(topInches >= 0 && topInches <= this._openGestureEdgeSize)
 					{
 						isNearAnyEdge = true;
@@ -2963,7 +2964,7 @@ class Drawers extends FeathersControl
 				{
 					if(this._rightDrawer != null && !this.isRightDrawerDocked)
 					{
-						var rightInches:Float = (this.actualWidth - localX) / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+						var rightInches:Float = (this.actualWidth - localX) / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 						if(rightInches >= 0 && rightInches <= this._openGestureEdgeSize)
 						{
 							isNearAnyEdge = true;
@@ -2973,7 +2974,7 @@ class Drawers extends FeathersControl
 					{
 						if(this._bottomDrawer != null && !this.isBottomDrawerDocked)
 						{
-							var bottomInches:Float = (this.actualHeight - localY) / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+							var bottomInches:Float = (this.actualHeight - localY) / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 							if(bottomInches >= 0 && bottomInches <= this._openGestureEdgeSize)
 							{
 								isNearAnyEdge = true;
@@ -2983,7 +2984,7 @@ class Drawers extends FeathersControl
 						{
 							if(this._leftDrawer != null && !this.isLeftDrawerDocked)
 							{
-								var leftInches:Float = localX / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+								var leftInches:Float = localX / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 								if(leftInches >= 0 && leftInches <= this._openGestureEdgeSize)
 								{
 									isNearAnyEdge = true;
@@ -3073,7 +3074,7 @@ class Drawers extends FeathersControl
 			sum += this._previousVelocityX.shift() * weight;
 			totalWeight += weight;
 		}
-		var inchesPerSecondX:Float = 1000 * (sum / totalWeight) / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+		var inchesPerSecondX:Float = 1000 * (sum / totalWeight) / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 
 		sum = this._velocityY * CURRENT_VELOCITY_WEIGHT;
 		velocityCount = this._previousVelocityY.length;
@@ -3084,7 +3085,7 @@ class Drawers extends FeathersControl
 			sum += this._previousVelocityY.shift() * weight;
 			totalWeight += weight;
 		}
-		var inchesPerSecondY:Float = 1000 * (sum / totalWeight) / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+		var inchesPerSecondY:Float = 1000 * (sum / totalWeight) / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 
 		this._isDragging = false;
 		var positionToCheck:Float;
@@ -3297,8 +3298,8 @@ class Drawers extends FeathersControl
 	 */
 	private function checkForDragToClose():Void
 	{
-		var horizontalInchesMoved:Float = (this._currentTouchX - this._startTouchX) / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
-		var verticalInchesMoved:Float = (this._currentTouchY - this._startTouchY) / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+		var horizontalInchesMoved:Float = (this._currentTouchX - this._startTouchX) / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
+		var verticalInchesMoved:Float = (this._currentTouchY - this._startTouchY) / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 		if(this.isLeftDrawerOpen && horizontalInchesMoved <= -this._minimumDragDistance)
 		{
 			this._isDragging = true;
@@ -3344,8 +3345,8 @@ class Drawers extends FeathersControl
 	 */
 	private function checkForDragToOpen():Void
 	{
-		var horizontalInchesMoved:Float = (this._currentTouchX - this._startTouchX) / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
-		var verticalInchesMoved:Float = (this._currentTouchY - this._startTouchY) / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+		var horizontalInchesMoved:Float = (this._currentTouchX - this._startTouchX) / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
+		var verticalInchesMoved:Float = (this._currentTouchY - this._startTouchY) / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 		if(this._leftDrawer != null && !this.isLeftDrawerDocked && horizontalInchesMoved >= this._minimumDragDistance)
 		{
 			this._isDragging = true;

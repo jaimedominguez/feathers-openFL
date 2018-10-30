@@ -13,6 +13,7 @@ import feathers.core.PropertyProxy;
 import feathers.events.ExclusiveTouch;
 import feathers.events.FeathersEventType;
 import feathers.system.DeviceCapabilities;
+import feathers.utils.display.FeathersDisplayUtil;
 import feathers.utils.math.FeathersMathUtil.roundDownToNearest;
 import feathers.utils.math.FeathersMathUtil.roundToNearest;
 import feathers.utils.math.FeathersMathUtil.roundUpToNearest;
@@ -4913,7 +4914,7 @@ class Scroller extends FeathersControl implements IFocusDisplayObject
 	{
 		if(this._snapToPages && !this._snapOnComplete)
 		{
-			var inchesPerSecond:Float = 1000 * pixelsPerMS / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+			var inchesPerSecond:Float = 1000 * pixelsPerMS / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 			var snappedPageHorizontalScrollPosition:Float;
 			if(inchesPerSecond > this._minimumPageThrowVelocity)
 			{
@@ -5001,7 +5002,7 @@ class Scroller extends FeathersControl implements IFocusDisplayObject
 	{
 		if(this._snapToPages && !this._snapOnComplete)
 		{
-			var inchesPerSecond:Float = 1000 * pixelsPerMS / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+			var inchesPerSecond:Float = 1000 * pixelsPerMS / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 			var snappedPageVerticalScrollPosition:Float;
 			if(inchesPerSecond > this._minimumPageThrowVelocity)
 			{
@@ -5670,8 +5671,8 @@ class Scroller extends FeathersControl implements IFocusDisplayObject
 			this._previousTouchX = this._currentTouchX;
 			this._previousTouchY = this._currentTouchY;
 		}
-		var horizontalInchesMoved:Float = Math.abs(this._currentTouchX - this._startTouchX) / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
-		var verticalInchesMoved:Float = Math.abs(this._currentTouchY - this._startTouchY) / (DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+		var horizontalInchesMoved:Float = Math.abs(this._currentTouchX - this._startTouchX) / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
+		var verticalInchesMoved:Float = Math.abs(this._currentTouchY - this._startTouchY) / (DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 		var exclusiveTouch:ExclusiveTouch;
 		if((this._horizontalScrollPolicy == SCROLL_POLICY_ON ||
 			(this._horizontalScrollPolicy == SCROLL_POLICY_AUTO && this._minHorizontalScrollPosition != this._maxHorizontalScrollPosition)) &&
@@ -5863,7 +5864,7 @@ class Scroller extends FeathersControl implements IFocusDisplayObject
 		}
 		#end
 		var starlingViewPort:Rectangle = Starling.current.viewPort;
-		var scaleFactor:Float = nativeScaleFactor / Starling.current.contentScaleFactor;
+		var scaleFactor:Float = nativeScaleFactor / FeathersDisplayUtil.scaleFactor;
 		HELPER_POINT.x = (event.stageX - starlingViewPort.x) * scaleFactor;
 		HELPER_POINT.y = (event.stageY - starlingViewPort.y) * scaleFactor;
 		if(this.contains(this.stage.hitTest(HELPER_POINT, true)))

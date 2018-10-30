@@ -16,6 +16,7 @@ import feathers.utils.display.stageToStarling;
 #else
 import feathers.utils.display.FeathersDisplayUtil.stageToStarling;
 #end
+import feathers.utils.display.FeathersDisplayUtil;
 
 import flash.display.Stage;
 import flash.display.StageDisplayState;
@@ -795,7 +796,7 @@ class VideoPlayer extends BaseTimedMediaPlayer implements IVideoPlayer
 		else
 		{
 			this._isWaitingForTextureReady = true;
-			this._texture = Texture.fromNetStream(this._netStream, Starling.current.contentScaleFactor, videoTexture_onComplete);
+			this._texture = Texture.fromNetStream(this._netStream, FeathersDisplayUtil.scaleFactor, videoTexture_onComplete);
 			this._texture.root.onRestore = videoTexture_onRestore;
 			//don't call play() until after Texture.fromNetStream() because
 			//the texture needs to be created first.

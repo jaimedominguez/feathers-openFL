@@ -37,6 +37,7 @@ class SlideTween extends Tween
 		this._onCompleteCallback = onCompleteCallback;
 		this.onComplete = this.cleanupTween;
 		Starling.current.juggler.add(this);
+
 	}
 
 	private var _navigator:DisplayObject;
@@ -68,13 +69,15 @@ class SlideTween extends Tween
 
 	private function cleanupTween():Void
 	{
+		
+		/*
 		this.target.x = 0;
 		this.target.y = 0;
 		if(this._otherTarget != null)
 		{
 			this._otherTarget.x = 0;
 			this._otherTarget.y = 0;
-		}
+		}*/
 		if(this._onCompleteCallback != null)
 		{
 			this._onCompleteCallback();

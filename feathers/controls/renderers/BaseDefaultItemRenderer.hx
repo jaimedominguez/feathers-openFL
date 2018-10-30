@@ -2922,12 +2922,6 @@ class BaseDefaultItemRenderer extends ToggleButton implements IFocusContainer
 		{
 			value = new PropertyProxy();
 		}
-		/*if(!(Std.is(value, PropertyProxy)))
-		{
-			var newValue:PropertyProxy = new PropertyProxy();
-			DataProperties.copyValuesFromPropProxyTo(value, newValue.storage);
-			value = newValue;
-		}*/
 		if(this._accessoryLabelProperties != null)
 		{
 			this._accessoryLabelProperties.removeOnChangeCallback(childProperties_onChange);
@@ -3054,7 +3048,7 @@ class BaseDefaultItemRenderer extends ToggleButton implements IFocusContainer
 			return labelResult.toString();
 		}
 		else if(this._labelField != null && (item!=null) && Reflect.hasField(item,_labelField))
-		//else if(this._labelField != null && item && item.hasOwnProperty(this._labelField))
+	
 		{
 		
 			labelResult = Reflect.getProperty(item, _labelField);
@@ -3175,7 +3169,7 @@ class BaseDefaultItemRenderer extends ToggleButton implements IFocusContainer
 			this.refreshAccessorySource(source);
 			return this.accessoryLoader;
 		}
-		//else if (this._accessorySourceField != null && item && item.hasOwnProperty(this._accessorySourceField))
+		
 		else if(this._accessorySourceField != null && (item!=null) && Reflect.hasField(item,_accessorySourceField))
 		{
 			source = Reflect.getProperty(item, this._accessorySourceField);
@@ -3195,7 +3189,7 @@ class BaseDefaultItemRenderer extends ToggleButton implements IFocusContainer
 			}
 			return cast(this.accessoryLabel, DisplayObject);
 		}
-		//else if (this._accessoryLabelField != null && item && item.hasOwnProperty(this._accessoryLabelField))
+	
 		else if(this._accessoryLabelField != null && (item!=null) && Reflect.hasField(item,_accessoryLabelField))
 		{
 			labelResult = Reflect.getProperty(item, this._accessoryLabelField);
@@ -3213,7 +3207,7 @@ class BaseDefaultItemRenderer extends ToggleButton implements IFocusContainer
 		{
 			return cast(this._accessoryFunction(item), DisplayObject);
 		}
-		//else if (this._accessoryField != null && item && item.hasOwnProperty(this._accessoryField))
+		
 		else if(this._accessoryField != null && (item!=null) && Reflect.hasField(item,_accessoryField))
 		{
 			return cast(Reflect.getProperty(item, this._accessoryField), DisplayObject);
@@ -3956,16 +3950,7 @@ class BaseDefaultItemRenderer extends ToggleButton implements IFocusContainer
 		{
 			var displayAccessoryLabel:DisplayObject = cast(this.accessoryLabel, DisplayObject);
 			if (this._accessoryLabelProperties != null){
-				/*for (propertyName in Reflect.fields(this._accessoryLabelProperties.storage))
-				{
-					var propertyValue:Dynamic = Reflect.field(this._accessoryLabelProperties.storage, propertyName);
-					Reflect.setProperty(displayAccessoryLabel, propertyName, propertyValue);
-				}*/
 				DataProperties.copyValuesFromDictionaryTo(_accessoryLabelProperties.storage, displayAccessoryLabel);
-				/*for (propertyName in _accessoryLabelProperties.storage.iterator()) {
-					var propertyValue:Dynamic = _accessoryLabelProperties.storage.get(propertyName);
-					Reflect.setProperty(displayAccessoryLabel, propertyName, propertyValue);
-				}*/
 			}
 		}
 	}
@@ -4148,6 +4133,8 @@ class BaseDefaultItemRenderer extends ToggleButton implements IFocusContainer
 	override private function refreshMaxLabelSize(forMeasurement:Bool):Void
 	{
 		var calculatedWidth:Float = this.actualWidth;
+		
+		
 		if(forMeasurement)
 		{
 			calculatedWidth = this.explicitWidth;

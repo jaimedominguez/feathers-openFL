@@ -15,6 +15,7 @@ import feathers.utils.geom.matrixToScaleY;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleX;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleY;
 #end
+import feathers.utils.display.FeathersDisplayUtil;
 
 import flash.errors.IllegalOperationError;
 import flash.events.ErrorEvent;
@@ -482,7 +483,7 @@ class WebView extends FeathersControl
 			nativeScaleFactor = Starling.current.nativeStage.contentsScaleFactor;
 		}
 		#end
-		var scaleFactor:Float = Starling.current.contentScaleFactor / nativeScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor / nativeScaleFactor;
 		stageWebViewViewPort.x = Math.round(starlingViewPort.x + HELPER_POINT.x * scaleFactor);
 		stageWebViewViewPort.y = Math.round(starlingViewPort.y + HELPER_POINT.y * scaleFactor);
 		var viewPortWidth:Float = Math.round(this.actualWidth * scaleFactor * globalScaleX);

@@ -178,6 +178,7 @@ class ScreenDensityScaleFactorManager
 	 */
 	private function nativeStage_resizeHandler(event:Event):Void
 	{
+	
 		this.updateStarlingStageDimensions();
 	}
 	

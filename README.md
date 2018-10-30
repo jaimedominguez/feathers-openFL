@@ -23,3 +23,11 @@ Current Limitations
   * Outline fonts are rendered with FreeType renderer implemented top of BitmapFont.
 * If you move the mouse cursor outside of the window, touch processor still think that cursor is inside.
 
+
+
+Differences with official Feathers
+----------------------------------
+
+* ScaleFactor factor moved to 'FeathersDisplayUtil.scaleFactor'.  We need to match it to Starling.current.contentScaleFactor manually.
+* Setting properties has to be done using *.*Properties.setProperty();  I.E:  skinSelector.imageProperties.setProperty("width", 66);
+

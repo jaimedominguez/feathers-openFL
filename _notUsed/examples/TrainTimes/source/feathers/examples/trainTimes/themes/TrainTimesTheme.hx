@@ -25,6 +25,7 @@ import feathers.system.DeviceCapabilities;
 import feathers.textures.Scale3Textures;
 import feathers.textures.Scale9Textures;
 import feathers.themes.StyleNameFunctionTheme;
+import feathers.utils.display.FeathersDisplayUtil;
 
 import flash.display.BitmapData;
 import flash.geom.Rectangle;
@@ -166,7 +167,7 @@ class TrainTimesTheme extends StyleNameFunctionTheme
 	private function initializeScale():Void
 	{
 		#if 0
-		var scaledDPI:Int = Std.int(DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+		var scaledDPI:Int = Std.int(DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 		var originalDPI:Int;
 		if(DeviceCapabilities.isTablet(Starling.current.nativeStage))
 		{

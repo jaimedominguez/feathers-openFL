@@ -166,7 +166,7 @@ class TrainTimesTheme extends StyleNameFunctionTheme
 	private function initializeScale():Void
 	{
 		#if 0
-		var scaledDPI:Int = Std.int(DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+		var scaledDPI:Int = Std.int(DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
 		var originalDPI:Int;
 		if(DeviceCapabilities.isTablet(Starling.current.nativeStage))
 		{

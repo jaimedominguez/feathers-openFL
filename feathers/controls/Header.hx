@@ -17,6 +17,7 @@ import feathers.layout.LayoutBoundsResult;
 import feathers.layout.ViewPortBounds;
 import feathers.skins.IStyleProvider;
 import feathers.system.DeviceCapabilities;
+import feathers.utils.display.FeathersDisplayUtil;
 
 import openfl.display.Stage;
 import openfl.display.StageDisplayState;
@@ -1692,9 +1693,9 @@ class Header extends FeathersControl
 		{
 			//retina devices have more padding than non-retina
 			//we also need to account for contentScaleFactor
-			return IOS_RETINA_STATUS_BAR_HEIGHT / Starling.current.contentScaleFactor;
+			return IOS_RETINA_STATUS_BAR_HEIGHT / FeathersDisplayUtil.scaleFactor;
 		}
-		return IOS_NON_RETINA_STATUS_BAR_HEIGHT / Starling.current.contentScaleFactor;
+		return IOS_NON_RETINA_STATUS_BAR_HEIGHT / FeathersDisplayUtil.scaleFactor;
 	}
 
 	/**

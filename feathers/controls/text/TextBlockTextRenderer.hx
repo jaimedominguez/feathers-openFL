@@ -18,6 +18,7 @@ import feathers.utils.display.FeathersDisplayUtil.stageToStarling;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleX;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleY;
 #end
+import feathers.utils.display.FeathersDisplayUtil;
 import openfl.Vector;
 
 import openfl.display.BitmapData;
@@ -1258,7 +1259,9 @@ class TextBlockTextRenderer extends FeathersControl implements ITextRenderer
 					this.validate();
 				}
 			}
-			var scaleFactor:Float = Starling.current.contentScaleFactor;
+			
+			trace("B-scaleFactor:" + scaleFactor);
+			var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 			var offsetX:Float;
 			var offsetY:Float;
 			if(this._nativeFilters == null || this._nativeFilters.length == 0)
@@ -1512,7 +1515,7 @@ class TextBlockTextRenderer extends FeathersControl implements ITextRenderer
 
 		if(sizeInvalid)
 		{
-			var scaleFactor:Float = Starling.current.contentScaleFactor;
+			var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 			//these are getting put into an int later, so we don't want it
 			//to possibly round down and cut off part of the text. 
 			var rectangleSnapshotWidth:Float = Math.ceil(this.actualWidth * scaleFactor);
@@ -1695,7 +1698,7 @@ class TextBlockTextRenderer extends FeathersControl implements ITextRenderer
 		var texture:Texture = snapshot.texture;
 		texture.root.onRestore = function():Void
 		{
-			var scaleFactor:Float = Starling.current.contentScaleFactor;
+			var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 			if(texture.scale != scaleFactor)
 			{
 				//if we've changed between scale factors, we need to
@@ -1759,7 +1762,7 @@ class TextBlockTextRenderer extends FeathersControl implements ITextRenderer
 		{
 			return;
 		}
-		var scaleFactor:Float = Starling.current.contentScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 		var globalScaleX:Float = Math.NaN;
 		var globalScaleY:Float = Math.NaN;
 		if(this._updateSnapshotOnScaleChange)

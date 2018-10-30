@@ -7,6 +7,7 @@ accordance with the terms of the accompanying license agreement.
 */
 package feathers.controls.supportClasses;
 import feathers.core.FeathersControl;
+import feathers.utils.display.FeathersDisplayUtil;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToRotation;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleX;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleY;
@@ -839,7 +840,7 @@ class TextFieldViewPort extends FeathersControl implements IViewPort
 			nativeScaleFactor = Starling.current.nativeStage.contentsScaleFactor;
 		}
 		#end
-		var scaleFactor:Float = Starling.current.contentScaleFactor / nativeScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor / nativeScaleFactor;
 		this._textFieldContainer.x = starlingViewPort.x + HELPER_POINT.x * scaleFactor;
 		this._textFieldContainer.y = starlingViewPort.y + HELPER_POINT.y * scaleFactor;
 		this._textFieldContainer.scaleX = matrixToScaleX(HELPER_MATRIX) * scaleFactor;
@@ -925,7 +926,7 @@ class TextFieldViewPort extends FeathersControl implements IViewPort
 			{
 				this._textField.text = this._text;
 			}
-			this._scrollStep = this._textField.getLineMetrics(0).height * Starling.current.contentScaleFactor;
+			this._scrollStep = this._textField.getLineMetrics(0).height * FeathersDisplayUtil.scaleFactor;
 		}
 
 		var calculatedVisibleWidth:Float = this._explicitVisibleWidth;

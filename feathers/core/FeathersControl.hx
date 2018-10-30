@@ -238,7 +238,7 @@ class FeathersControl extends Sprite implements IFeathersControl implements ILay
 	 */
 	public static var defaultTextEditorFactory:Void->ITextEditor = function():ITextEditor
 	{
-	trace("UUUUUUU");
+	//trace("UUUUUUU");
 		
 		//#if (flash || html5)
 		//return new StageTextTextEditor();
@@ -1812,6 +1812,7 @@ class FeathersControl extends Sprite implements IFeathersControl implements ILay
 	 */
 	public function setSize(width:Float, height:Float):Void
 	{
+		
 		this.explicitWidth = width;
 		var widthIsNaN:Bool = width != width;
 		if(widthIsNaN)
@@ -1831,6 +1832,7 @@ class FeathersControl extends Sprite implements IFeathersControl implements ILay
 		}
 		else
 		{
+			
 			this.setSizeInternal(width, height, true);
 		}
 	}

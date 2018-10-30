@@ -35,6 +35,7 @@ import feathers.controls.Check;
 import feathers.controls.Header;
 import feathers.controls.ImageLoader;
 import feathers.controls.Label;
+import feathers.controls.LayoutGroup;
 import feathers.controls.PageIndicator;
 import feathers.controls.PickerList;
 import feathers.controls.ProgressBar;
@@ -66,6 +67,7 @@ import feathers.skins.StandardIcons;
 import feathers.system.DeviceCapabilities;
 import feathers.textures.Scale3Textures;
 import feathers.textures.Scale9Textures;
+import feathers.utils.display.FeathersDisplayUtil;
 import flash.display.BitmapData;
 import flash.geom.Rectangle;
 import flash.text.TextFormat;
@@ -142,7 +144,7 @@ class KaleidoTheme extends DisplayListWatcher
         return _scaleToDPI;
     }
     
-    private var scale : Float;
+    public var scale : Float;
     public var fontSize : Int;
     public var fontName : String;
     public var fontBold : Bool;
@@ -238,10 +240,9 @@ class KaleidoTheme extends DisplayListWatcher
         }
         super.dispose();
     }
-    
-    private function initialize() : Void
-    {
-        var scaledDPI : Int = Std.int(DeviceCapabilities.dpi / Starling.current.contentScaleFactor);
+	
+	public function updateDPI():Void {
+	  var scaledDPI : Int = Std.int(DeviceCapabilities.dpi / FeathersDisplayUtil.scaleFactor);
         if (_scaleToDPI)
         {
             if (DeviceCapabilities.isTablet(Starling.current.nativeStage))
@@ -257,11 +258,18 @@ class KaleidoTheme extends DisplayListWatcher
         {
             _originalDPI = scaledDPI;
         }
-        scale = scaledDPI / _originalDPI;
+        scale = scaledDPI / _originalDPI;	
+	}
+		
+    
+    private function initialize() : Void
+    {
+
+      
         fontBold = true;
 		
+		updateDPI();
 		fontSize = initFontSize();
-       
         
         Callout.stagePaddingTop = Callout.stagePaddingRight = Callout.stagePaddingBottom =
                                 Callout.stagePaddingLeft = 16 * scale;
@@ -382,7 +390,7 @@ class KaleidoTheme extends DisplayListWatcher
 	
 	private function getUsedAtlas():TextureAtlas {
 		//here you need to return the atlas where the images have been uploaded.
-		
+		return null;
 	}
     
     private function pageIndicatorNormalSymbolFactory() : DisplayObject
@@ -413,7 +421,8 @@ class KaleidoTheme extends DisplayListWatcher
     }
     
     private function screenInitializer(screen : Screen) : Void
-    {  //screen.originalDPI = _originalDPI;  
+    {  
+		screen.autoSizeMode = LayoutGroup.AUTO_SIZE_MODE_STAGE;
         
     }
     
@@ -766,7 +775,7 @@ class KaleidoTheme extends DisplayListWatcher
     
     private function pickerListInitializer(list : PickerList) : Void
     {
-       trace("PICKER LIST INITIALIZER!");
+ 
 		
 		
 		if (DeviceCapabilities.isTablet(Starling.current.nativeStage))
@@ -821,12 +830,12 @@ class KaleidoTheme extends DisplayListWatcher
         backgroundSkin.height = 88 * scale;
         backgroundSkin.blendMode = BlendMode.NONE;
         header.backgroundSkin = backgroundSkin;
-       // header.titleProperties.textFormat = new TextFormat(fontName, fontSize, PRIMARY_TEXT_COLOR, fontBold);
+       
         header.paddingTop = header.paddingRight = header.paddingBottom =
                                 header.paddingLeft = 14 * scale;
         header.minHeight = 88 * scale;
 		
-		header.titleProperties.setProperty("textFormat", new TextFormat(Assets.FONT_NAME_MENU, fontSize, 0xffffff, false));
+		header.titleProperties.setProperty("textFormat", new TextFormat(fontName, fontSize, 0xffffff, false));
         header.titleProperties.setProperty("embedFonts", true);
     }
     

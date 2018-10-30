@@ -17,6 +17,7 @@ import feathers.utils.geom.matrixToScaleY;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleX;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleY;
 #end
+import feathers.utils.display.FeathersDisplayUtil;
 import feathers.utils.type.ArrayUtil;
 import haxe.CallStack;
 
@@ -1193,7 +1194,10 @@ class TextFieldTextRenderer extends FeathersControl implements ITextRenderer
 					this.validate();
 				}
 			}
-			var scaleFactor:Float = Starling.current.contentScaleFactor;
+		
+			var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
+			//var scaleFactor:Float = 1;
+			
 			var offsetX:Float;
 			var offsetY:Float;
 			if(this._nativeFilters == null || this._nativeFilters.length == 0)
@@ -1206,6 +1210,8 @@ class TextFieldTextRenderer extends FeathersControl implements ITextRenderer
 				offsetX = this._textSnapshotOffsetX / scaleFactor;
 				offsetY = this._textSnapshotOffsetY / scaleFactor;
 			}
+			
+			
 			if(this._snapToPixels)
 			{
 				offsetX += Math.round(HELPER_MATRIX.tx) - HELPER_MATRIX.tx;
@@ -1217,6 +1223,7 @@ class TextFieldTextRenderer extends FeathersControl implements ITextRenderer
 			var totalBitmapHeight:Float = this._snapshotHeight;
 			var xPosition:Float = offsetX;
 			var yPosition:Float = offsetY;
+			
 			do
 			{
 				var currentBitmapWidth:Float = totalBitmapWidth;
@@ -1304,7 +1311,7 @@ class TextFieldTextRenderer extends FeathersControl implements ITextRenderer
 		if(this.textField == null)
 		{
 			this.textField = new TextField();
-			var scaleFactor:Float = Starling.current.contentScaleFactor;
+			var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 			this.textField.scaleX = scaleFactor;
 			this.textField.scaleY = scaleFactor;
 			#if flash
@@ -1411,7 +1418,7 @@ class TextFieldTextRenderer extends FeathersControl implements ITextRenderer
 		this.textField.autoSize = TextFieldAutoSize.LEFT;
 		this.textField.wordWrap = false;
 
-		var scaleFactor:Float = Starling.current.contentScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 		var gutterDimensionsOffset:Float = 4;
 		if(this._useGutter)
 		{
@@ -1487,13 +1494,14 @@ class TextFieldTextRenderer extends FeathersControl implements ITextRenderer
 		var dataInvalid:Bool = this.isInvalid(FeathersControl.INVALIDATION_FLAG_DATA);
 		var stateInvalid:Bool = this.isInvalid(FeathersControl.INVALIDATION_FLAG_STATE);
 
-		var scaleFactor:Float = Starling.current.contentScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 		var gutterDimensionsOffset:Float = 4;
 		if(this._useGutter)
 		{
 			gutterDimensionsOffset = 0;
 		}
 
+		
 		//if measure() isn't called, we need to apply the same workaround
 		//for the openfl.text.TextField bug with wordWrap.
 		if(!this._hasMeasured && this._wordWrap)
@@ -1698,7 +1706,7 @@ class TextFieldTextRenderer extends FeathersControl implements ITextRenderer
 		var texture:Texture = snapshot.texture;
 		texture.root.onRestore = function():Void
 		{
-			var scaleFactor:Float = Starling.current.contentScaleFactor;
+			var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 			HELPER_MATRIX.identity();
 			HELPER_MATRIX.scale(scaleFactor, scaleFactor);
 			var bitmapData:BitmapData = self.drawTextFieldRegionToBitmapData(
@@ -1714,7 +1722,7 @@ class TextFieldTextRenderer extends FeathersControl implements ITextRenderer
 	private function drawTextFieldRegionToBitmapData(textFieldX:Float, textFieldY:Float,
 		bitmapWidth:Float, bitmapHeight:Float, bitmapData:BitmapData = null):BitmapData
 	{
-		var scaleFactor:Float = Starling.current.contentScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 		var clipWidth:Float = this._snapshotVisibleWidth - textFieldX;
 		var clipHeight:Float = this._snapshotVisibleHeight - textFieldY;
 		if(bitmapData == null || bitmapData.width != bitmapWidth || bitmapData.height != bitmapHeight)
@@ -1751,7 +1759,7 @@ class TextFieldTextRenderer extends FeathersControl implements ITextRenderer
 		{
 			return;
 		}
-		var scaleFactor:Float = Starling.current.contentScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 		var globalScaleX:Float = Math.NaN;
 		var globalScaleY:Float = Math.NaN;
 		if(this._updateSnapshotOnScaleChange)

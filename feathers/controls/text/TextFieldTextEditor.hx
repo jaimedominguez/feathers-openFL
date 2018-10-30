@@ -11,6 +11,7 @@ import feathers.core.FocusManager;
 import feathers.core.INativeFocusOwner;
 import feathers.core.ITextEditor;
 import feathers.events.FeathersEventType;
+import feathers.utils.display.FeathersDisplayUtil;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToRotation;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleX;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleY;
@@ -1827,7 +1828,7 @@ class TextFieldTextEditor extends FeathersControl implements ITextEditor impleme
 		this._textFieldSnapshotClipRect.x = 0;
 		this._textFieldSnapshotClipRect.y = 0;
 
-		var scaleFactor:Float = Starling.current.contentScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 		var clipWidth:Float = this.actualWidth * scaleFactor;
 		if(this._updateSnapshotOnScaleChange)
 		{
@@ -1890,7 +1891,7 @@ class TextFieldTextEditor extends FeathersControl implements ITextEditor impleme
 			nativeScaleFactor = Starling.current.nativeStage.contentsScaleFactor;
 		}
 		#end
-		var scaleFactor:Float = Starling.current.contentScaleFactor / nativeScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor / nativeScaleFactor;
 		var gutterPositionOffset:Float = 0;
 		if(!this._useGutter)
 		{
@@ -1935,7 +1936,7 @@ class TextFieldTextEditor extends FeathersControl implements ITextEditor impleme
 		}
 		var textureRoot:ConcreteTexture = this.textSnapshot != null ? this.textSnapshot.texture.root : null;
 		this._needsNewTexture = this._needsNewTexture || this.textSnapshot == null ||
-		textureRoot.scale != Starling.current.contentScaleFactor ||
+		textureRoot.scale != FeathersDisplayUtil.scaleFactor ||
 		this._snapshotWidth != textureRoot.width || this._snapshotHeight != textureRoot.height;
 	}
 
@@ -1966,7 +1967,7 @@ class TextFieldTextEditor extends FeathersControl implements ITextEditor impleme
 	private function texture_onRestore():Void
 	{
 		if(this.textSnapshot != null && this.textSnapshot.texture != null &&
-			this.textSnapshot.texture.scale != Starling.current.contentScaleFactor)
+			this.textSnapshot.texture.scale != FeathersDisplayUtil.scaleFactor)
 		{
 			//if we've changed between scale factors, we need to recreate
 			//the texture to match the new scale factor.
@@ -1992,7 +1993,7 @@ class TextFieldTextEditor extends FeathersControl implements ITextEditor impleme
 		{
 			gutterPositionOffset = 0;
 		}
-		var scaleFactor:Float = Starling.current.contentScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 		var globalScaleX:Float = Math.NaN;
 		var globalScaleY:Float = Math.NaN;
 		if(this._updateSnapshotOnScaleChange)

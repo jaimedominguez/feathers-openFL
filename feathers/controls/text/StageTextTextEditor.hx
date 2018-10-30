@@ -10,6 +10,7 @@ import feathers.core.FeathersControl;
 import feathers.core.IMultilineTextEditor;
 import feathers.events.FeathersEventType;
 import feathers.text.StageTextField;
+import feathers.utils.display.FeathersDisplayUtil;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleX;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleY;
 import openfl.errors.Error;
@@ -1524,7 +1525,7 @@ class StageTextTextEditor extends FeathersControl implements IMultilineTextEdito
 			var viewPort:Rectangle = this.stageText.viewPort;
 			var textureRoot:ConcreteTexture = this.textSnapshot != null ? this.textSnapshot.texture.root : null;
 			this._needsNewTexture = this._needsNewTexture || this.textSnapshot == null ||
-				textureRoot.scale != Starling.current.contentScaleFactor ||
+				textureRoot.scale != FeathersDisplayUtil.scaleFactor ||
 				viewPort.width != textureRoot.width || viewPort.height != textureRoot.height;
 		}
 
@@ -1694,7 +1695,7 @@ class StageTextTextEditor extends FeathersControl implements IMultilineTextEdito
 	 */
 	private function texture_onRestore():Void
 	{
-		if(this.textSnapshot.texture.scale != Starling.current.contentScaleFactor)
+		if(this.textSnapshot.texture.scale != FeathersDisplayUtil.scaleFactor)
 		{
 			//if we've changed between scale factors, we need to recreate
 			//the texture to match the new scale factor.
@@ -1768,7 +1769,7 @@ class StageTextTextEditor extends FeathersControl implements IMultilineTextEdito
 		var newTexture:Texture = null;
 		if(this.textSnapshot == null || this._needsNewTexture)
 		{
-			var scaleFactor:Float = Starling.current.contentScaleFactor;
+			var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 			//skip Texture.fromBitmapData() because we don't want
 			//it to create an onRestore function that will be
 			//immediately discarded for garbage collection. 
@@ -1873,7 +1874,7 @@ class StageTextTextEditor extends FeathersControl implements IMultilineTextEdito
 			nativeScaleFactor = Starling.current.nativeStage.contentsScaleFactor;
 		}
 #end
-		var scaleFactor:Float = Starling.current.contentScaleFactor / nativeScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor / nativeScaleFactor;
 		var starlingViewPort:Rectangle = Starling.current.viewPort;
 		var stageTextViewPort:Rectangle = this.stageText.viewPort;
 		if(stageTextViewPort == null)
@@ -1899,7 +1900,7 @@ class StageTextTextEditor extends FeathersControl implements IMultilineTextEdito
 		this.stageText.viewPort = stageTextViewPort;
 
 		//for some reason, we don't need to account for the native scale factor here
-		scaleFactor = Starling.current.contentScaleFactor;
+		scaleFactor = FeathersDisplayUtil.scaleFactor;
 		//StageText's fontSize property is an int, so we need to
 		//specifically avoid using Number here.
 		var newFontSize:Int = Std.int(this._fontSize * scaleFactor * smallerGlobalScale);

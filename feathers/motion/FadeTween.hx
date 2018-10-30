@@ -47,11 +47,11 @@ class FadeTween extends Tween
 
 	private function cleanupTween():Void
 	{
-		this.target.alpha = 1;
+		/*this.target.alpha = 1;
 		if(this._otherTarget != null)
 		{
 			this._otherTarget.alpha = 1;
-		}
+		}*/
 		if(this._onCompleteCallback != null)
 		{
 			this._onCompleteCallback();

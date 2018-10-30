@@ -18,6 +18,7 @@ import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleX;
 import feathers.utils.geom.FeathersMatrixUtil.matrixToScaleY;
 import feathers.utils.math.FeathersMathUtil.roundToNearest;
 #end
+import feathers.utils.display.FeathersDisplayUtil;
 import openfl.errors.ArgumentError;
 
 import flash.events.Event;
@@ -608,7 +609,7 @@ class TextFieldTextEditorViewPort extends TextFieldTextEditor implements ITextEd
 		this._textFieldSnapshotClipRect.x = 0;
 		this._textFieldSnapshotClipRect.y = 0;
 
-		var scaleFactor:Float = Starling.current.contentScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor;
 		var clipWidth:Float = textFieldWidth * scaleFactor;
 		if(this._updateSnapshotOnScaleChange)
 		{
@@ -683,7 +684,7 @@ class TextFieldTextEditorViewPort extends TextFieldTextEditor implements ITextEd
 			nativeScaleFactor = Starling.current.nativeStage.contentsScaleFactor;
 		}
 		#end
-		var scaleFactor:Float = Starling.current.contentScaleFactor / nativeScaleFactor;
+		var scaleFactor:Float = FeathersDisplayUtil.scaleFactor / nativeScaleFactor;
 		HELPER_POINT.x = HELPER_POINT.y = 0;
 		this.getTransformationMatrix(this.stage, HELPER_MATRIX);
 		MatrixUtil.transformCoords(HELPER_MATRIX, 0, 0, HELPER_POINT);
