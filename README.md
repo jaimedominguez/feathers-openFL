@@ -1,9 +1,5 @@
 # feathers-openfl
-Unofficial port of Feathers UI Framework. Currently based on Feathers 2.2.0.
-
-[HTML5 version of ComponentExplorer](http://vroad.github.io/feathers-openfl/ComponentExplorer)
-
-[io.js version of ComponentExplorer for Windows](https://www.dropbox.com/s/eor7mmc7wec2j0q/feathers-openfl-ComponentExplorer_20150305.zip?dl=0)
+Unofficial port of Feathers UI Framework. Currently based on Feathers 2.2.0, designed for openFL and Starling 1.8.
 
 Install
 -------
@@ -17,15 +13,13 @@ Dependencies:
 Current Limitations
 -------------------
 
-* Currently only works on HTML5 and Node.js.
-* Current does not work correctly on original version of OpenFL and lime.
-* Only Next version of OpenFL is supported.
-* ScrollText doesn't work correctly.
+* ScrollText doesn't work correctly?
 * TextInput doesn't work correctly.
-* Numeric Stepper is still buggy on HTML5.
+* Numeric Stepper is buggy.
 * TextBlockTextRenderer is not supported.
 * On HTML5, Texts are rendered with TextFieldTextRenderer.
   * Texts on html5 may look diffrent from that of native targets.
 * On native targets, Texts are rendered with BitmapFontTextRenderer.
   * Outline fonts are rendered with FreeType renderer implemented top of BitmapFont.
 * If you move the mouse cursor outside of the window, touch processor still think that cursor is inside.
+

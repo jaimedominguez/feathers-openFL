@@ -1,0 +1,11 @@
+{
+    "name":         "feathers",
+    "url":          "https://github.com/jaimedominguez/feathers-openfl",
+    "license":      "Simplified BSD License",
+    "tags":         ["feathers", "ui"],
+    "description":  "Unofficial port of Feathers for Starling 1.8, haxe.",
+    "version":      "1.1.0",
+    "releasenote":  "First working version with Starling 1.8",
+    "contributors": ["jaimedominguez"],
+	"dependencies": { "openfl": "", "starling":"" };
+}
