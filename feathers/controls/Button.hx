@@ -6,7 +6,7 @@ This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
 */
 package feathers.controls;
-import com.jaimedominguez.util.debug.InObject;
+
 import feathers.core.FeathersControl;
 import feathers.core.IFeathersControl;
 import feathers.core.IFocusDisplayObject;

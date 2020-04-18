@@ -875,7 +875,7 @@ class ListDataViewPort extends FeathersControl implements IViewPort
 		if(_activeRenderers.length > 0)
 		{
 			if (_activeRenderers[0] !=null){
-				throw new IllegalOperationError("ListDataViewPort: active renderers should be empty.");
+				//throw new IllegalOperationError("ListDataViewPort: active renderers should be empty.");
 			}else {
 			
 				_activeRenderers = new Array<IListItemRenderer>();
@@ -1299,8 +1299,6 @@ class ListDataViewPort extends FeathersControl implements IViewPort
 		}
 		renderer.data = null;
 		renderer.data = item;
-		trace("*");
-		trace("updating here item data(2):"+item.label);
 	}
 
 	private function layout_changeHandler(event:Event):Void

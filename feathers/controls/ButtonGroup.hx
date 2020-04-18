@@ -6,7 +6,7 @@ This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
 */
 package feathers.controls;
-import com.jaimedominguez.dataType.Boolean;
+
 import feathers.core.FeathersControl;
 import feathers.core.PropertyProxy;
 import feathers.data.DataProperties;
@@ -16,6 +16,7 @@ import feathers.layout.LayoutBoundsResult;
 import feathers.layout.VerticalLayout;
 import feathers.layout.ViewPortBounds;
 import feathers.skins.IStyleProvider;
+import kaleidoEngine.data.dataType.Boolean;
 
 import starling.display.DisplayObject;
 import starling.events.Event;
@@ -1615,7 +1616,7 @@ class ButtonGroup extends FeathersControl
 	private function defaultButtonInitializer(button:Button, item:Dynamic):Void
 	{
 		//if(Std.is(item, Dynamic))
-		{
+		
 		//	if (item.hasOwnProperty(LABEL_FIELD))
 			if (Reflect.hasField(item,LABEL_FIELD))
 			{
@@ -1666,7 +1667,7 @@ class ButtonGroup extends FeathersControl
 					button.removeEventListener(field, defaultButtonEventsListener);
 				}
 			}
-		}
+		
 		/*else
 		{
 			button.label = "";

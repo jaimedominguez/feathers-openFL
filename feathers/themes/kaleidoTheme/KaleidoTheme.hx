@@ -98,8 +98,11 @@ class KaleidoTheme extends DisplayListWatcher
     private static var SCROLL_BAR_THUMB_SCALE_9_GRID : Rectangle = new Rectangle(4, 4, 4, 4);
     
     private static inline var BACKGROUND_COLOR : Int = 0x13171a;
-    public static inline var PRIMARY_TEXT_COLOR : Int = 0xffffff;
-    private static inline var SELECTED_TEXT_COLOR : Int = 0xe5e5e5;
+   // public static inline var PRIMARY_TEXT_COLOR : Int = 0xffffff;
+    //private static inline var SELECTED_TEXT_COLOR : Int = 0xe5e5e5;
+   
+	public static inline var PRIMARY_TEXT_COLOR : Int = 0xaaaaaa;
+    private static inline var SELECTED_TEXT_COLOR : Int = 0xffffff;
     
     private static inline var ORIGINAL_DPI_IPHONE_RETINA : Int = 326;
     private static inline var ORIGINAL_DPI_IPAD_RETINA : Int = 264;
@@ -733,7 +736,8 @@ class KaleidoTheme extends DisplayListWatcher
         renderer.stateToSkinFunction = skinSelector.updateValue;
         
         renderer.defaultLabelProperties.setProperty("textFormat", new TextFormat(fontName, fontSize, PRIMARY_TEXT_COLOR, fontBold));
-         
+        renderer.defaultSelectedLabelProperties.setProperty("textFormat",new TextFormat(fontName, fontSize, SELECTED_TEXT_COLOR, fontBold));
+      
         renderer.horizontalAlign = Button.HORIZONTAL_ALIGN_LEFT;
         renderer.paddingTop = renderer.paddingBottom = 11 * scale;
         renderer.paddingLeft = renderer.paddingRight = 20 * scale;

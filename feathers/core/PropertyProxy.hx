@@ -8,7 +8,6 @@ This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
 */
 package feathers.core;
-import com.jaimedominguez.util.debug.InObject;
 import openfl.utils.Dictionary;
 //#if 0
 //import flash.utils.Proxy;
